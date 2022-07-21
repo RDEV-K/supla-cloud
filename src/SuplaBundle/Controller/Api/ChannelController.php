@@ -126,7 +126,7 @@ class ChannelController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Channel"))),
      * )
-     * @Rest\Get(name="channels_list")
+     * @Rest\Get("/channels", name="channels_list")
      * @Security("has_role('ROLE_CHANNELS_R')")
      */
     public function getChannelsAction(Request $request) {
@@ -182,6 +182,7 @@ class ChannelController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
      * )
+     * @Rest\Get("/channels/{channel}")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
@@ -233,6 +234,7 @@ class ChannelController extends RestController {
      *       )
      *    ),
      * )
+     * @Rest\Put("/channels/{channel}")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
      */
@@ -379,6 +381,7 @@ class ChannelController extends RestController {
      *          @OA\Property(property="message", type="string", example="Cannot execute requested action on this channel."),
      *     )),
      * )
+     * @Rest\Patch("/channels/{channel}")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_EA') and is_granted('accessIdContains', channel)")
      */
     public function patchChannelAction(Request $request, IODeviceChannel $channel) {
@@ -435,6 +438,7 @@ class ChannelController extends RestController {
     }
 
     /**
+     * @Rest\Get("/iodevices/{ioDevice}/channels")
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', ioDevice)")
      */
     public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {

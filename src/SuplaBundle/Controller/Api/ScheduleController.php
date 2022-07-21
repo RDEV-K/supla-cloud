@@ -62,12 +62,16 @@ class ScheduleController extends RestController {
         }
     }
 
-    /** @Security("has_role('ROLE_SCHEDULES_R')") */
+    /**
+     * @Rest\Get("/schedules")
+     * @Security("has_role('ROLE_SCHEDULES_R')")
+     */
     public function getSchedulesAction(Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
     }
 
     /**
+     * @Rest\Get("/channels/{channel}/schedules")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getChannelSchedulesAction(IODeviceChannel $channel, Request $request) {
@@ -101,6 +105,7 @@ class ScheduleController extends RestController {
     }
 
     /**
+     * @Rest\Get("/schedules/{schedule}")
      * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_R')")
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
@@ -108,6 +113,7 @@ class ScheduleController extends RestController {
     }
 
     /**
+     * @Rest\Post("/schedules")
      * @Security("has_role('ROLE_SCHEDULES_RW')")
      * @UnavailableInMaintenance
      */
@@ -124,6 +130,7 @@ class ScheduleController extends RestController {
     }
 
     /**
+     * @Rest\Put("/schedules/{schedule}")
      * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
      * @UnavailableInMaintenance
      */
@@ -178,6 +185,7 @@ class ScheduleController extends RestController {
     }
 
     /**
+     * @Rest\Patch("/schedules")
      * @Security("has_role('ROLE_SCHEDULES_RW')")
      * @UnavailableInMaintenance
      */
@@ -196,6 +204,7 @@ class ScheduleController extends RestController {
     }
 
     /**
+     * @Rest\Delete("/schedules/{schedule}")
      * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
      * @UnavailableInMaintenance
      */

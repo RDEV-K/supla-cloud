@@ -64,7 +64,10 @@ class IODeviceController extends RestController {
         return $groups;
     }
 
-    /** @Security("has_role('ROLE_IODEVICES_R')") */
+    /**
+     * @Rest\Get("/iodevices")
+     * @Security("has_role('ROLE_IODEVICES_R')")
+     */
     public function getIodevicesAction(Request $request) {
         $result = [];
         $user = $this->getUser();
@@ -189,13 +192,14 @@ class IODeviceController extends RestController {
     }
 
     /**
+     * @Rest\Put("/iodevices/{ioDevice}")
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
     public function putIodeviceAction(
-        Request             $request,
-        IODevice            $ioDevice,
-        IODevice            $updatedDevice,
+        Request $request,
+        IODevice $ioDevice,
+        IODevice $updatedDevice,
         ChannelDependencies $channelDependencies
     ) {
         $result = $this->transactional(function (EntityManagerInterface $em) use (
@@ -237,6 +241,7 @@ class IODeviceController extends RestController {
     }
 
     /**
+     * @Rest\Patch("/iodevices/{ioDevice}")
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
@@ -262,6 +267,7 @@ class IODeviceController extends RestController {
     }
 
     /**
+     * @Rest\Delete("/iodevices/{ioDevice}")
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
